@@ -1,11 +1,15 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import Slide from "../Slide/index.jsx";
 class Slides extends Component {
-  render() {
+  componentDidMount() {
     this.props.slides.forEach(slide => {
       console.log(slide);
     });
+  }
 
-    return <div>ok slides</div>;
+  render() {
+    return <div>ok</div>;
   }
 }
 export default Slides;

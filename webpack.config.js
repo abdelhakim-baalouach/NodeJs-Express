@@ -23,6 +23,10 @@ module.exports = (env, argv) => {
           options: { name: "/static/[name].[ext]" }
         },
         {
+          test: /\.svg$/,
+          use: ["@svgr/webpack"]
+        },
+        {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {

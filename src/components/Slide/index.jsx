@@ -4,7 +4,11 @@ class Slide extends Component {
     const slide = this.props.slide;
     const type = slide.type ? "title" : "...";
 
-    return <h1> {slide.title} </h1>;
+    return (
+      <div>
+        <h1> {slide.title} </h1>
+      </div>
+    );
   }
 }
 export default Slide;
