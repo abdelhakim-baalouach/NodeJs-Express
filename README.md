@@ -24,7 +24,6 @@ Notre travail a été réalisé sur le repo :
 
 - npm start
 
-
-## Authors :
+## Author :
 
 - **BAALOUACH Abdelhakim** 11934327

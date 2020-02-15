@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LOGO from "../static/img/logo.png";
+import SlideShow from "./components/SlideShow/index.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Index = () => (
   <div>
-    <h1>--- TP1 ---</h1>
-    <img src={LOGO} alt="Logo" />
+    <SlideShow />
   </div>
 );
 ReactDOM.render(<Index />, document.getElementById("root"));

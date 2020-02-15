@@ -4,28 +4,37 @@ const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
 });
-module.exports = {
-  entry: "./src/index.jsx",
-  output: {
-    // NEW
-    path: path.join(__dirname, "dist"),
-    filename: "[name].js"
-  }, // NEW Ends
-  plugins: [htmlPlugin],
-  module: {
-    rules: [
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        loader: "file-loader",
-        options: { name: "/static/[name].[ext]" }
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
+module.exports = (env, argv) => {
+  console.log(argv.mode);
+  return {
+    entry: "./src/index.jsx",
+    output: {
+      // NEW
+      path: path.join(__dirname, "dist"),
+      filename: "[name].js"
+    }, // NEW Ends
+    devtool: "eval-source-map",
+    plugins: [htmlPlugin],
+    module: {
+      rules: [
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          loader: "file-loader",
+          options: { name: "/static/[name].[ext]" }
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
+          }
+        },
+        {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"]
         }
-      }
-    ]
-  }
+      ]
+    },
+    watch: argv === "development"
+  };
 };
