@@ -40,6 +40,6 @@ module.exports = (env, argv) => {
       ]
     },
 
-    watch: argv === "development"
+    watch: argv.mode === "development"
   };
 };
