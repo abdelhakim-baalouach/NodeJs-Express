@@ -27,7 +27,7 @@ const SLIDES = [
 
 const Index = () => (
   <div className="full-page">
-    <SlideShow slides={SLIDES} />
+    <SlideShow slides={SLIDES} index={1} />
   </div>
 );
 ReactDOM.render(<Index />, document.getElementById("root"));

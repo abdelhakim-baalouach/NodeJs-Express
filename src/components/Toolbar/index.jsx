@@ -6,37 +6,32 @@ import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Row from "react-bootstrap/Row";
-import Left from "@material-ui/icons/ArrowLeftRounded";
-import Right from "@material-ui/icons/ArrowRightRounded";
 
 class Toolbar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      page: 1,
       next: false,
       prev: true
     };
     this.previousSlider = this.previousSlider.bind(this);
     this.nextSlider = this.nextSlider.bind(this);
   }
+
   nextSlider() {
-    if (this.state.page < this.props.slides.length) {
+    if (this.props.index < this.props.slides.length) {
       this.setState({ prev: false });
-      alert(this.state.page + 1);
-      this.setState({
-        page: this.state.page + 1
-      });
+      const page = this.props.index + 1;
+      this.props.onChangeIndex(page);
     } else this.setState({ next: true });
   }
 
   previousSlider() {
-    if (this.state.page > 1) {
+    if (this.props.index > 1) {
       this.setState({ next: false });
-      alert(this.state.page - 1);
-      this.setState({
-        page: this.state.page - 1
-      });
+      const page = this.props.index - 1;
+      this.props.onChangeIndex(page);
     } else this.setState({ prev: true });
   }
   render() {
@@ -54,7 +49,7 @@ class Toolbar extends Component {
               onClick={this.previousSlider}
               disabled={this.state.prev}
             >
-              <Left />
+              previous
             </Button>
             <Button
               variant="warning"
@@ -62,7 +57,7 @@ class Toolbar extends Component {
               onClick={this.nextSlider}
               disabled={this.state.next}
             >
-              <Right />
+              next
             </Button>
           </ButtonToolbar>
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class Slide extends Component {
   render() {
     const slide = this.props.slide;
-    const type = slide.type ? "title" : "...";
+    const title = slide.title ? "title" : "...";
 
     return (
       <div>
