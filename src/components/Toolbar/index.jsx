@@ -14,8 +14,8 @@ class Toolbar extends Component {
     super(props);
 
     this.state = {
-      next: false,
-      prev: true
+      next: this.props.index == 1 ? true : false,
+      prev: this.props.index < this.props.slides.length ? true : false
     };
     this.previousSlider = this.previousSlider.bind(this);
     this.nextSlider = this.nextSlider.bind(this);
@@ -32,12 +32,11 @@ class Toolbar extends Component {
   previousSlider() {
     if (this.props.index > 0) {
       this.setState({ next: false });
-      const page = this.props.index - 1;
-      this.props.onChangeIndex(page);
+      this.props.onChangeIndex(this.props.index - 1);
     } else this.setState({ prev: true });
   }
   onSelectDropDown(e) {
-    this.props.onChangeIndex(e - 1);
+    this.props.onChangeIndex(e);
 
     if (this.props.index == 1) this.setState({ prev: true });
     else this.setState({ next: false });
@@ -58,7 +57,7 @@ class Toolbar extends Component {
         >
           <ButtonToolbar>
             <Button
-              href={"#/" + npPage}
+              href={"#/" + (npPage + 1)}
               variant="warning"
               className="ml-2"
               disabled={this.state.prev}
@@ -68,7 +67,7 @@ class Toolbar extends Component {
             </Button>
 
             <Button
-              href={"#/" + npPage}
+              href={"#/" + (npPage + 1)}
               variant="warning"
               className="ml-2"
               disabled={this.state.next}
