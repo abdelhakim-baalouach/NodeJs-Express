@@ -1,23 +1,31 @@
-import React, { Component } from "react";
-import "../../../static/css/style.css";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Col";
+import React, { Component } from 'react';
+import '../../../static/css/style.css';
+import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 class Slide extends Component {
   render() {
+    const { type, title, text } = this.props.slide;
     return (
       <Row>
         <Col className="mt-5" xs={12}>
           <p className="title">
-            <span className="color-blue">{this.props.slide.type} : </span>{" "}
-            {this.props.slide.title}
+            <span className="color-blue">
+              {type}
+              {' '}
+              :
+              {' '}
+            </span>
+            {' '}
+            {title}
           </p>
         </Col>
         <Container>
           <Row>
             <Col>
-              <p className="text">{this.props.slide.text}</p>
+              <p className="text">{text}</p>
             </Col>
           </Row>
         </Container>
@@ -25,4 +33,11 @@ class Slide extends Component {
     );
   }
 }
+Slide.propTypes = {
+  slide: PropTypes.shape({
+    type: PropTypes.string,
+    title: PropTypes.string,
+    text: PropTypes.string,
+  }),
+};
 export default Slide;
