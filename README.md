@@ -1,8 +1,8 @@
-TP 2
+TP 3
 
 # Decsription
 
-L’objectif du TP est de mettre en place une Single Page Application (SPA) permettant de créer et controler des présentations. Elle sera développée principalement côté client avec React, avec un serveur Node/Express léger. Client et serveur seront codés en JavaScript.
+L’objectif du TP est gérer l'état global de l'application. Il est prévu pour permettre de partager des informations entre différentes parties de l'application. Elle sera développée principalement par redux.
 
 ### Informations générales:
 
