@@ -1,64 +1,60 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import {
+  nextSlide,
+  previousSlide,
+  setSlide
+} from "../../redux/actions/actions.jsx";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Row from "react-bootstrap/Row";
-// import Left from "@material-ui/icons/ArrowLeftRounded";
-// import Right from "@material-ui/icons/ArrowRightRounded";
+import { withRouter } from "react-router-dom";
 
 class Toolbar extends Component {
-  constructor(props) {
-    super(props);
-    const { index, size } = this.props;
-    this.state = {
-      next: index === 1,
-      prev: index < size
-    };
-    this.previousSlider = this.previousSlider.bind(this);
-    this.nextSlider = this.nextSlider.bind(this);
-    this.onSelectDropDown = this.onSelectDropDown.bind(this);
-  }
-
-  nextSlider() {
-    const { index, size, onChangeIndex } = this.props;
-    if (index < size - 1) {
-      this.setState({ prev: false });
-      onChangeIndex(index + 1);
-    } else this.setState({ next: true });
-  }
-
-  previousSlider() {
-    const { index, onChangeIndex } = this.props;
-    if (index > 0) {
-      this.setState({ next: false });
-      onChangeIndex(index - 1);
-    } else this.setState({ prev: true });
-  }
-
-  onSelectDropDown(e) {
-    const { index, size, onChangeIndex } = this.props;
-    onChangeIndex(e);
-
-    if (index === 1) this.setState({ prev: true });
-    else this.setState({ next: false });
-
-    if (index + 1 === size) this.setState({ next: true });
-    else this.setState({ prev: false });
-
-    window.location.href = `#/${parseInt(e) + 1}`;
-  }
-
   render() {
-    const { index, size } = this.props;
-    const { next, prev } = this.state;
+    const { index, size, nextSlide, previousSlide, setSlide } = this.props;
+    const button = [];
+
+    if (index > 0) {
+      button.push(
+        <Button
+          href={"#/" + (index + 1)}
+          variant="warning"
+          className="ml-2"
+          onClick={previousSlide}
+        >
+          Previous
+        </Button>
+      );
+    }
+
+    if (index < size - 1) {
+      button.push(
+        <Button
+          href={"#/" + (index + 1)}
+          variant="warning"
+          className="ml-2"
+          onClick={nextSlide}
+        >
+          Next
+        </Button>
+      );
+    }
 
     const Items = [];
     for (let i = 0; i < size; i++) {
       Items.push(
-        <Dropdown.Item eventKey={i} key={i}>
+        <Dropdown.Item
+          eventKey={i}
+          key={i}
+          onSelect={e => {
+            setSlide(e);
+            window.location.href = `#/${parseInt(e) + 1}`;
+          }}
+        >
           {i + 1}
         </Dropdown.Item>
       );
@@ -71,27 +67,7 @@ class Toolbar extends Component {
           expand="lg"
           className="bg-dark justify-content-between"
         >
-          <ButtonToolbar>
-            <Button
-              href={`#/${index + 1}`}
-              variant="warning"
-              className="ml-2"
-              disabled={prev}
-              onClick={this.previousSlider}
-            >
-              previous
-            </Button>
-
-            <Button
-              href={`#/${index + 1}`}
-              variant="warning"
-              className="ml-2"
-              disabled={next}
-              onClick={this.nextSlider}
-            >
-              next
-            </Button>
-          </ButtonToolbar>
+          <ButtonToolbar>{button}</ButtonToolbar>
 
           <DropdownButton
             className="mx-2"
@@ -100,7 +76,6 @@ class Toolbar extends Component {
             title={index + 1}
             id="dropdown-button-drop-up"
             key="up"
-            onSelect={this.onSelectDropDown}
           >
             {Items}
           </DropdownButton>
@@ -109,4 +84,21 @@ class Toolbar extends Component {
     );
   }
 }
-export default Toolbar;
+const mapStateToProps = state => {
+  const { index, slides } = state;
+  return {
+    index: index,
+    size: slides.length
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    nextSlide: () => dispatch(nextSlide()),
+    previousSlide: () => dispatch(previousSlide()),
+    setSlide: index => dispatch(setSlide(index))
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Toolbar)
+);

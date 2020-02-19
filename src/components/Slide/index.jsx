@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -32,4 +34,10 @@ Slide.propTypes = {
     text: PropTypes.string
   })
 };
-export default Slide;
+const mapStateToProps = state => {
+  const { index, slides } = state;
+  return {
+    slide: slides[index]
+  };
+};
+export default connect(mapStateToProps)(Slide);

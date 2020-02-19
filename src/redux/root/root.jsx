@@ -8,7 +8,7 @@ const App = () => (
   <div className="full-page">
     <HashRouter>
       <Route path="/:page" component={SlideShow} />
-      <Redirect from="/" to="/0" />
+      <Redirect from="/" to="/1" />
     </HashRouter>
   </div>
 );

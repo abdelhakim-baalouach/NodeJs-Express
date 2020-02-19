@@ -25,4 +25,10 @@
     text-transform: capitalize;
     font-family: "Roboto Slab", serif;
   }
+  .text {
+    font-size: 16px;
+    font-family: "Playfair Display", serif;
+    text-align: justify;
+    text-justify: inter-word;
+  }
 }
